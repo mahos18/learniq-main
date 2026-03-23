@@ -1,0 +1,314 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@layer base {
+  :root {
+    --void:    #070B18;
+    --navy:    #0A0F1E;
+    --surface: #0D1226;
+    --panel:   #111827;
+    --card:    #141C35;
+    --border:  #1E2D55;
+    --electric:#4B7BF5;
+    --pulse:   #7C5CFC;
+    --cyan:    #00D4FF;
+    --neon:    #39FF84;
+    --amber:   #F5A623;
+    --muted:   #8892A4;
+    --faint:   #3D4F70;
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--void);
+  }
+
+  body {
+    background: var(--navy);
+    color: #E8EAF0;
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar       { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--surface); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--electric); }
+
+  /* Selection */
+  ::selection { background: rgba(75,123,245,0.3); color: #fff; }
+}
+
+@layer components {
+
+  /* ── Cards ─────────────────────────────────────────── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 1px 0 rgba(75,123,245,0.08), inset 0 1px 0 rgba(255,255,255,0.02);
+  }
+
+  .card-hover {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+  }
+  .card-hover:hover {
+    border-color: rgba(75,123,245,0.4);
+    box-shadow: 0 0 20px rgba(75,123,245,0.1);
+    transform: translateY(-1px);
+  }
+
+  /* ── Buttons ─────────────────────────────────────── */
+  .btn-primary {
+    background: var(--electric);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary:hover {
+    background: #5B8BFF;
+    box-shadow: 0 0 20px rgba(75,123,245,0.4);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active { transform: scale(0.97); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-ghost:hover {
+    border-color: rgba(75,123,245,0.4);
+    color: #E8EAF0;
+    background: rgba(75,123,245,0.05);
+  }
+
+  .btn-pulse {
+    background: var(--pulse);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-pulse:hover {
+    background: #8C6CFF;
+    box-shadow: 0 0 20px rgba(124,92,252,0.4);
+  }
+
+  /* ── Inputs ──────────────────────────────────────── */
+  .input {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: #E8EAF0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+  }
+  .input::placeholder { color: var(--faint); }
+  .input:focus {
+    border-color: var(--electric);
+    box-shadow: 0 0 0 3px rgba(75,123,245,0.15);
+  }
+
+  /* ── Labels / Badges ─────────────────────────────── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .badge-electric {
+    background: rgba(75,123,245,0.15);
+    color: #7BA7FF;
+    border: 1px solid rgba(75,123,245,0.25);
+  }
+  .badge-pulse {
+    background: rgba(124,92,252,0.15);
+    color: #A688FF;
+    border: 1px solid rgba(124,92,252,0.25);
+  }
+  .badge-neon {
+    background: rgba(57,255,132,0.1);
+    color: #39FF84;
+    border: 1px solid rgba(57,255,132,0.2);
+  }
+  .badge-amber {
+    background: rgba(245,166,35,0.1);
+    color: #F5A623;
+    border: 1px solid rgba(245,166,35,0.2);
+  }
+  .badge-danger {
+    background: rgba(255,71,87,0.1);
+    color: #FF6B7A;
+    border: 1px solid rgba(255,71,87,0.2);
+  }
+
+  /* ── Labels (spaced caps like in screenshots) ────── */
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── Stat card ───────────────────────────────────── */
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* ── Sidebar nav item ────────────────────────────── */
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-decoration: none;
+  }
+  .nav-item:hover {
+    background: rgba(75,123,245,0.06);
+    color: #E8EAF0;
+  }
+  .nav-item.active {
+    background: rgba(75,123,245,0.12);
+    color: #7BA7FF;
+    border: 1px solid rgba(75,123,245,0.2);
+  }
+
+  /* ── Progress bar ────────────────────────────────── */
+  .progress-track {
+    height: 3px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--electric), var(--cyan));
+    transition: width 0.6s ease;
+  }
+
+  /* ── Grid background overlay ─────────────────────── */
+  .grid-bg {
+    background-image: linear-gradient(rgba(75,123,245,0.04) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(75,123,245,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* ── Glow dots / decorative ──────────────────────── */
+  .glow-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--electric);
+    box-shadow: 0 0 8px var(--electric);
+    display: inline-block;
+  }
+  .glow-dot-pulse {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--neon);
+    box-shadow: 0 0 8px var(--neon);
+    display: inline-block;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* ── Points chip ─────────────────────────────────── */
+  .points-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(245,166,35,0.1);
+    border: 1px solid rgba(245,166,35,0.2);
+    color: #F5A623;
+    padding: 5px 12px;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-display  { font-family: 'Space Grotesk', sans-serif; }
+  .font-mono-    { font-family: 'JetBrains Mono', monospace; }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .text-electric { color: var(--electric); }
+  .text-pulse    { color: var(--pulse); }
+  .text-cyan     { color: var(--cyan); }
+  .text-neon     { color: var(--neon); }
+  .text-muted    { color: var(--muted); }
+  .text-faint    { color: var(--faint); }
+  .text-bright   { color: #FFFFFF; }
+
+  .border-electric { border-color: rgba(75,123,245,0.3); }
+  .border-pulse    { border-color: rgba(124,92,252,0.3); }
+
+  .bg-surface { background: var(--surface); }
+  .bg-card    { background: var(--card); }
+  .bg-panel   { background: var(--panel); }
+  .bg-navy    { background: var(--navy); }
+  .bg-void    { background: var(--void); }
+}
