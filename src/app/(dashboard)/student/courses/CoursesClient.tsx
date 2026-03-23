@@ -40,7 +40,7 @@ export default function CoursesClient({ courses, enrolledIds, userPoints }: Prop
     setEnrolling(course._id);
     try {
       await axios.post("/api/enroll", { courseId: course._id, usePoints });
-      setEnrolled((prev) => new Set([...prev, course._id]));
+      setEnrolled((prev) => new Set([...Array.from(prev), course._id]));
       toast.success("Enrolled successfully!");
       router.refresh();
     } catch (e: any) {
