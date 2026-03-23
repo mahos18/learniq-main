@@ -1,40 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import { uploadToCloudinary } from "@/lib/cloudinary";
+import { v2 as cloudinary } from "cloudinary";
 
-// POST /api/upload — upload file to Cloudinary, return URL
-// Body: FormData with field "file" and optional "type" (image|video|raw)
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:    process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 export async function POST(req: NextRequest) {
-  try {
-    const session = await getServerSession(authOptions);
-    if (!session || session.user.role !== "instructor") {
-      return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
-    }
+  const formData = await req.formData();
+  const file = formData.get("file") as File;
 
-    const formData = await req.formData();
-    const file = formData.get("file") as File;
-    const type = (formData.get("type") as string) || "raw";
+  if (!file) return NextResponse.json({ error: "No file" }, { status: 400 });
 
-    if (!file) {
-      return NextResponse.json({ success: false, error: "No file provided" }, { status: 400 });
-    }
+  // Convert file to buffer
+  const bytes  = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
 
-    // Max 100MB
-    if (file.size > 100 * 1024 * 1024) {
-      return NextResponse.json({ success: false, error: "File too large (max 100MB)" }, { status: 400 });
-    }
+  // Detect resource type
+  const mime = file.type;
+  const resourceType = mime.startsWith("video/") ? "video"
+                     : mime === "application/pdf" ? "raw"
+                     : "image";
 
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const { url, publicId } = await uploadToCloudinary(
-      buffer,
-      file.name,
-      type as "image" | "video" | "raw"
-    );
+  const result = await new Promise<any>((resolve, reject) => {
+    cloudinary.uploader.upload_stream(
+      { resource_type: resourceType, folder: "courses" },
+      (err, res) => err ? reject(err) : resolve(res)
+    ).end(buffer);
+  });
 
-    return NextResponse.json({ success: true, data: { url, publicId } });
-  } catch (err) {
-    console.error("Upload error:", err);
-    return NextResponse.json({ success: false, error: "Upload failed" }, { status: 500 });
-  }
+  return NextResponse.json({ url: result.secure_url, resourceType });
 }

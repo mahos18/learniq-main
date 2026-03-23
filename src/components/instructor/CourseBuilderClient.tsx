@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import BlockForm from "@/components/BlockForm";
 import {
   DndContext, closestCenter, KeyboardSensor,
   PointerSensor, useSensor, useSensors, DragEndEvent,
@@ -26,6 +27,7 @@ const BLOCK_TYPES = [
   { type: "quiz_popup", label: "Checkpoint Quiz",    icon: Zap        },
   { type: "quiz_end",   label: "End-of-Module Quiz", icon: Award      },
 ];
+const [blockFormType, setBlockFormType] = useState<{ type: string; label: string } | null>(null);
 
 function SortableModule({ mod, onDelete, onExpand, expanded }: any) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: mod._id });
@@ -112,6 +114,27 @@ export default function CourseBuilderClient({ courseId, initialModules }: {
     }
   };
 
+  const handleBlockSaved = (newBlock: any) => {
+  setModules((prev) =>
+    prev.map((m) =>
+      m._id === expanded
+        ? { ...m, contentBlocks: [...m.contentBlocks, newBlock] }
+        : m
+    )
+  );
+  setBlockFormType(null);
+};
+
+{blockFormType && expanded && (
+  <BlockForm
+    moduleId={expanded}
+    type={blockFormType.type}
+    label={blockFormType.label}
+    onSaved={handleBlockSaved}
+    onClose={() => setBlockFormType(null)}
+  />
+)}
+
   const toggleExpand = (id: string) => setExpanded((p) => (p === id ? null : id));
 
   return (
@@ -178,9 +201,8 @@ export default function CourseBuilderClient({ courseId, initialModules }: {
                       <button
                         key={type}
                         onClick={() => {
-                          // TODO: open block form for this type
                           setShowBlockMenu(false);
-                          toast(`Add ${label} block — connect to /api/modules/[id]/blocks`);
+                          setBlockFormType({ type, label });
                         }}
                         className="w-full flex items-center gap-2 px-3 py-2 text-sm text-slate-600 text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
                       >
