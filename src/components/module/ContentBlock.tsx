@@ -3,7 +3,7 @@
 import ReactMarkdown from "react-markdown";
 import { getYouTubeId } from "@/lib/utils";
 import type { ContentBlockClient } from "@/types";
-import QuizBlock from "./QuizBlock";
+import QuizBlock from "../quiz/QuizBlock";
 import Image from "next/image";
 
 interface ContentBlockProps {
