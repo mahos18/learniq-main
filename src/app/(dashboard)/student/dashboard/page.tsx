@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { connectDB } from "@/lib/db";
 import { Enrollment } from "@/models/Enrollment";
-import { Course } from "@/models/Course"; 
+import { Course } from "@/models/Course";
 import DashboardClient from "./DashboardClient";
 
 export default async function StudentDashboardPage() {
@@ -23,14 +23,15 @@ export default async function StudentDashboardPage() {
 
   return (
     <DashboardClient
-      user={session!.user}
-      enrollments={JSON.parse(JSON.stringify(enrollments))}
-      stats={{
-        totalModulesDone,
-        completedCourses,
-        enrolledCourses: enrollments.length,
-        rewardPoints: session!.user.rewardPoints,
-      }}
-    />
+    user={session!.user}
+    enrollments={JSON.parse(JSON.stringify(enrollments))}
+    lastCourse= {enrollments.length}  // 👈 add this
+    stats={{
+      totalModulesDone,
+      completedCourses,
+      totalEnrolled: enrollments.length,
+      rewardPoints: session!.user.rewardPoints,
+    }}
+  />
   );
 }

@@ -9,7 +9,7 @@ interface Props {
   user: { name: string; rewardPoints: number };
   enrollments: any[];
   lastCourse: any;
-  stats: { totalEnrolled: number; completedCourses: number; totalModulesDone: number; rewardPoints: number };
+  stats: { totalEnrolled: number; completedCourses: number;  totalModulesDone: number; rewardPoints: number };
 }
 
 export default function DashboardClient({ user, enrollments, lastCourse, stats }: Props) {
