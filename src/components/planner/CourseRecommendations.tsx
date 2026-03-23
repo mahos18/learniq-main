@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BookOpen, ExternalLink, ChevronRight, Clock, Star, Play } from "lucide-react";
+import { getYouTubeSearchUrl, getGeeksForGeeksSearchUrl } from "@/lib/planner/reliableResources";
 
 interface Course {
   _id: string;
@@ -142,6 +143,9 @@ export default function CourseRecommendations({ topic, onCourseClick }: CourseRe
         ))}
       </div>
       
+      
+
+
       <Link
         href="/student/courses"
         className="mt-3 text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 transition-colors"

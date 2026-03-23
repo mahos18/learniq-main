@@ -367,93 +367,206 @@ function LoadingScreen({ topic, duration }: { topic: string; duration: string })
 // Item Card Component
 // Item Card Component
 // Item Card Component
+
+//v1
+// function ItemCard({ item, color, done, onToggle, index, topic }: any) {
+//   const [open, setOpen] = useState(index === 0);
+  
+//   // Use item.topic if available, otherwise fallback to the main topic
+//   const itemTopic = item.topic || topic;
+  
+//   // Get enhanced resources for this topic
+//   const enhancedResources = getEnhancedLinks(itemTopic);
+  
+//   return (
+//     <div className={`mb-2 rounded-xl border transition-all ${done ? "bg-emerald-500/5 border-emerald-500/20" : "bg-[#0a0c18] border-[#1c2040]"} hover:border-indigo-500/30 hover:-translate-y-px`}>
+//       <div
+//         onClick={() => setOpen(!open)}
+//         className="p-3 flex items-center gap-3 cursor-pointer"
+//       >
+//         <div
+//           className={`w-10 h-10 rounded-lg flex-shrink-0 flex flex-col items-center justify-center border-2 ${
+//             done
+//               ? "bg-emerald-500/15 border-emerald-500/30"
+//               : ""
+//           }`}
+//           style={!done ? { background: color.bg, borderColor: color.bd } : {}}
+//         >
+//           {done ? (
+//             <Check className="w-4 h-4 text-emerald-400 animate-popIn" />
+//           ) : (
+//             <>
+//               <span className="text-[9px] font-mono font-bold" style={{ color: color.l }}>
+//                 {item.emoji}
+//               </span>
+//               <span className="text-xs font-mono font-bold" style={{ color: color.l }}>
+//                 {item.n}
+//               </span>
+//             </>
+//           )}
+//         </div>
+
+//         <div className="flex-1 min-w-0">
+//           <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
+//             <span className="text-[11px] text-gray-500 font-mono">{item.dayOrWeek}</span>
+//             <span className="w-0.5 h-0.5 rounded-full bg-gray-700" />
+//             <span className={`text-sm font-bold ${done ? "text-emerald-400" : ""}`} style={!done ? { color: color.l } : {}}>
+//               {item.topic}
+//             </span>
+//             <IntensityTag level={item.intensity} />
+//           </div>
+//           <p className="text-[11px] text-gray-500 truncate">{item.goal}</p>
+//         </div>
+
+//         <div className="flex items-center gap-2 flex-shrink-0">
+//           <span className="text-[10px] text-gray-500 font-mono">{item.hours}h</span>
+//           <div
+//             className={`w-5 h-5 rounded-md flex items-center justify-center text-xs transition-transform ${
+//               open ? "rotate-180" : ""
+//             }`}
+//             style={{ background: color.bg, border: `1px solid ${color.bd}`, color: color.l }}
+//           >
+//             ▾
+//           </div>
+//         </div>
+//       </div>
+
+//       {open && (
+//         <div className="px-4 pb-3.5 animate-fadeIn">
+//           <div className="bg-white/5 border border-gray-800 rounded-xl p-4 mb-2">
+            
+//             {/* YouTube Video Section */}
+//             {enhancedResources.some(r => r.type === "video") && (
+//               <div className="mb-4">
+//                 <p className="text-[9px] font-bold text-gray-500 uppercase tracking-wider mb-2">📺 Watch Tutorial</p>
+//                 <div className="space-y-2">
+//                   {enhancedResources.filter(r => r.type === "video").map((video, i) => (
+//                     <a
+//                       key={i}
+//                       href={video.url}
+//                       target="_blank"
+//                       rel="noopener noreferrer"
+//                       className="flex items-center gap-2 p-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition-all group"
+//                     >
+//                       <Play size={14} className="flex-shrink-0" />
+//                       <span className="text-xs flex-1">{video.label}</span>
+//                       <ExternalLink size={12} className="opacity-60 group-hover:opacity-100 transition-opacity" />
+//                     </a>
+//                   ))}
+//                 </div>
+//               </div>
+//             )}
+            
+//             {/* Activities */}
+//             <p className="text-[9px] font-bold text-gray-500 uppercase tracking-wider mb-2">📋 What you'll do today</p>
+//             <div className="flex flex-col gap-2 mb-3.5">
+//               {item.activities?.map((a: string, i: number) => (
+//                 <div key={i} className="flex gap-2.5">
+//                   <div
+//                     className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold font-mono flex-shrink-0 mt-0.5"
+//                     style={{ background: color.bg, border: `1px solid ${color.bd}`, color: color.l }}
+//                   >
+//                     {i + 1}
+//                   </div>
+//                   <p className="text-sm text-gray-300 leading-relaxed flex-1">{a}</p>
+//                 </div>
+//               ))}
+//             </div>
+            
+//             {/* Goal */}
+//             <div className="p-2.5 rounded-lg mb-3" style={{ background: color.bg, border: `1px solid ${color.bd}` }}>
+//               <p className="text-[10px] font-bold uppercase tracking-wide mb-0.5" style={{ color: color.l }}>
+//                 Session goal
+//               </p>
+//               <p className="text-xs text-gray-300 leading-relaxed">{item.goal}</p>
+//             </div>
+            
+//             {/* Resources with GeeksforGeeks */}
+//             <p className="text-[9px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">📚 Learning Resources</p>
+//             <div className="flex flex-wrap gap-1.5 mb-2">
+//               {enhancedResources.map((r, i) => (
+//                 <a
+//                   key={i}
+//                   href={r.url}
+//                   target="_blank"
+//                   rel="noopener noreferrer"
+//                   className={`inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-all group ${
+//                     r.type === "video"
+//                       ? "bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20"
+//                       : "bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 hover:bg-indigo-500/20"
+//                   }`}
+//                 >
+//                   <span className="text-[11px]">{r.type === "video" ? "📺" : "📄"}</span>
+//                   {r.label}
+//                   <ExternalLink size={10} className="opacity-60 group-hover:opacity-100 transition-opacity" />
+//                 </a>
+//               ))}
+//             </div>
+            
+//             {/* GeeksforGeeks specific section */}
+//             <div className="mt-2 pt-2 border-t border-gray-800">
+//               <a
+//                 href={`https://www.geeksforgeeks.org/search/?q=${encodeURIComponent(itemTopic)}`}
+//                 target="_blank"
+//                 rel="noopener noreferrer"
+//                 className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/20 transition-all group"
+//               >
+//                 <span>🔗</span>
+//                 More articles on GeeksforGeeks
+//                 <ExternalLink size={10} className="ml-1 opacity-60 group-hover:opacity-100 transition-opacity" />
+//               </a>
+//             </div>
+//           </div>
+          
+//           <button
+//             onClick={() => onToggle(item.n)}
+//             className="w-full py-2 rounded-lg text-xs font-bold transition-all"
+//             style={{
+//               background: done ? "rgba(225,29,72,.08)" : "rgba(5,150,105,.08)",
+//               border: `1px solid ${done ? "rgba(225,29,72,.25)" : "rgba(5,150,105,.25)"}`,
+//               color: done ? "#fb7185" : "#34d399",
+//             }}
+//           >
+//             {done ? "✕ Mark incomplete" : "✓ Mark complete"}
+//           </button>
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+// Import the reliable resources function
+import { getReliableResources, getYouTubeSearchUrl, getGeeksForGeeksSearchUrl } from "@/lib/planner/reliableResources";
+
 function ItemCard({ item, color, done, onToggle, index, topic }: any) {
   const [open, setOpen] = useState(index === 0);
-  
-  // Use item.topic if available, otherwise fallback to the main topic
   const itemTopic = item.topic || topic;
   
-  // Get enhanced resources for this topic
-  const enhancedResources = getEnhancedLinks(itemTopic);
+  // Get reliable resources (no LLM needed)
+  const reliableResources = getReliableResources(itemTopic);
   
   return (
     <div className={`mb-2 rounded-xl border transition-all ${done ? "bg-emerald-500/5 border-emerald-500/20" : "bg-[#0a0c18] border-[#1c2040]"} hover:border-indigo-500/30 hover:-translate-y-px`}>
-      <div
-        onClick={() => setOpen(!open)}
-        className="p-3 flex items-center gap-3 cursor-pointer"
-      >
-        <div
-          className={`w-10 h-10 rounded-lg flex-shrink-0 flex flex-col items-center justify-center border-2 ${
-            done
-              ? "bg-emerald-500/15 border-emerald-500/30"
-              : ""
-          }`}
-          style={!done ? { background: color.bg, borderColor: color.bd } : {}}
-        >
-          {done ? (
-            <Check className="w-4 h-4 text-emerald-400 animate-popIn" />
-          ) : (
-            <>
-              <span className="text-[9px] font-mono font-bold" style={{ color: color.l }}>
-                {item.emoji}
-              </span>
-              <span className="text-xs font-mono font-bold" style={{ color: color.l }}>
-                {item.n}
-              </span>
-            </>
-          )}
-        </div>
-
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
-            <span className="text-[11px] text-gray-500 font-mono">{item.dayOrWeek}</span>
-            <span className="w-0.5 h-0.5 rounded-full bg-gray-700" />
-            <span className={`text-sm font-bold ${done ? "text-emerald-400" : ""}`} style={!done ? { color: color.l } : {}}>
-              {item.topic}
-            </span>
-            <IntensityTag level={item.intensity} />
-          </div>
-          <p className="text-[11px] text-gray-500 truncate">{item.goal}</p>
-        </div>
-
-        <div className="flex items-center gap-2 flex-shrink-0">
-          <span className="text-[10px] text-gray-500 font-mono">{item.hours}h</span>
-          <div
-            className={`w-5 h-5 rounded-md flex items-center justify-center text-xs transition-transform ${
-              open ? "rotate-180" : ""
-            }`}
-            style={{ background: color.bg, border: `1px solid ${color.bd}`, color: color.l }}
-          >
-            ▾
-          </div>
-        </div>
-      </div>
-
+      {/* ... existing row code ... */}
+      
       {open && (
         <div className="px-4 pb-3.5 animate-fadeIn">
           <div className="bg-white/5 border border-gray-800 rounded-xl p-4 mb-2">
             
-            {/* YouTube Video Section */}
-            {enhancedResources.some(r => r.type === "video") && (
-              <div className="mb-4">
-                <p className="text-[9px] font-bold text-gray-500 uppercase tracking-wider mb-2">📺 Watch Tutorial</p>
-                <div className="space-y-2">
-                  {enhancedResources.filter(r => r.type === "video").map((video, i) => (
-                    <a
-                      key={i}
-                      href={video.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 p-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition-all group"
-                    >
-                      <Play size={14} className="flex-shrink-0" />
-                      <span className="text-xs flex-1">{video.label}</span>
-                      <ExternalLink size={12} className="opacity-60 group-hover:opacity-100 transition-opacity" />
-                    </a>
-                  ))}
-                </div>
-              </div>
-            )}
+            {/* YouTube Section - Always reliable */}
+            <div className="mb-4">
+              <p className="text-[9px] font-bold text-gray-500 uppercase tracking-wider mb-2">📺 Watch Tutorials</p>
+              <a
+                href={getYouTubeSearchUrl(itemTopic)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 p-2 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition-all group"
+              >
+                <Play size={14} className="flex-shrink-0" />
+                <span className="text-xs flex-1">Search YouTube for "{itemTopic}" tutorials</span>
+                <ExternalLink size={12} className="opacity-60 group-hover:opacity-100 transition-opacity" />
+              </a>
+            </div>
             
             {/* Activities */}
             <p className="text-[9px] font-bold text-gray-500 uppercase tracking-wider mb-2">📋 What you'll do today</p>
@@ -479,10 +592,10 @@ function ItemCard({ item, color, done, onToggle, index, topic }: any) {
               <p className="text-xs text-gray-300 leading-relaxed">{item.goal}</p>
             </div>
             
-            {/* Resources with GeeksforGeeks */}
+            {/* Learning Resources - Using reliable curated resources */}
             <p className="text-[9px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">📚 Learning Resources</p>
             <div className="flex flex-wrap gap-1.5 mb-2">
-              {enhancedResources.map((r, i) => (
+              {reliableResources.map((r, i) => (
                 <a
                   key={i}
                   href={r.url}
@@ -501,10 +614,10 @@ function ItemCard({ item, color, done, onToggle, index, topic }: any) {
               ))}
             </div>
             
-            {/* GeeksforGeeks specific section */}
+            {/* Direct GeeksforGeeks Search */}
             <div className="mt-2 pt-2 border-t border-gray-800">
               <a
-                href={`https://www.geeksforgeeks.org/search/?q=${encodeURIComponent(itemTopic)}`}
+                href={getGeeksForGeeksSearchUrl(itemTopic)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/20 transition-all group"
