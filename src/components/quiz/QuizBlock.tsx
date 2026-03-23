@@ -43,12 +43,12 @@ export default function QuizBlock({ block, moduleId, courseId, variant, onAnswer
           </div>
           <div>
             <p className={cn("font-semibold text-sm",
-              isPopup ? "text-ai-700 text-ai-300" : "text-brand-700 text-brand-300"
+              isPopup ? "text-white" : "text-white"
             )}>
               {isPopup ? "Quick Check!" : (block.title || "Module Assessment")}
             </p>
             {isPopup && (
-              <p className="text-xs text-ai-500 text-ai-400">
+              <p className="text-xs text-white">
                 Answer correctly for +{block.questions[0]?.bonusPoints ?? 15} points
               </p>
             )}
@@ -72,7 +72,7 @@ export default function QuizBlock({ block, moduleId, courseId, variant, onAnswer
 
           return (
             <div key={q._id}>
-              <p className="text-sm font-medium text-slate-800 text-slate-200 mb-3">
+              <p className="text-sm font-medium text-white text-white mb-3">
                 {q.question}
               </p>
               <div className="grid grid-cols-1 gap-2">

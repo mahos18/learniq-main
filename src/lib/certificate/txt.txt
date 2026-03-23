@@ -1,0 +1,220 @@
+app/api/generate-certificate/route.ts
+
+import puppeteer from "puppeteer-core";
+import { NextResponse } from "next/server";
+
+export async function POST(req: Request) {
+  const { name, course } = await req.json();
+
+  const html = `
+  <html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        position: relative;
+        width: 1000px;
+        height: 700px;
+      }
+
+      .bg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      .name {
+        position: absolute;
+        top: 360px;
+        width: 100%;
+        text-align: center;
+        font-size: 40px;
+        font-family: 'Georgia';
+        font-weight: bold;
+      }
+
+      .course {
+        position: absolute;
+        top: 430px;
+        width: 100%;
+        text-align: center;
+        font-size: 22px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <img src="http://localhost:3001/certificate.png" class="bg"/>
+
+      <div class="name">${name}</div>
+      <div class="course">${course}</div>
+    </div>
+  </body>
+  </html>
+  `;
+
+  const browser = await puppeteer.launch({
+    executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    headless: true,
+  });
+
+  const page = await browser.newPage();
+  await page.setContent(html, { waitUntil: "networkidle0" });
+
+  const pdf = await page.pdf({
+    width: "1000px",
+    height: "700px",
+    printBackground: true,
+  });
+
+  await browser.close();
+
+  return new NextResponse(pdf, {
+    headers: {
+      "Content-Type": "application/pdf",
+      "Content-Disposition": "attachment; filename=certificate.pdf",
+    },
+  });
+}  
+
+
+utils/certificateTemplates.ts
+
+import { NextResponse } from "next/server";
+import pdf from "html-pdf-node";
+
+export async function POST(req: Request) {
+  const { name, course } = await req.json();
+
+const html = `
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fdfdfd;
+      font-family: 'Georgia', serif;
+    }
+
+    .certificate {
+      width: 1000px;
+      height: 700px;
+      border: 15px solid #C9A94D;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      margin: auto;
+    }
+
+    .title {
+      font-size: 50px;
+      font-weight: bold;
+      color: #C9A94D;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      margin-top: 20px;
+    }
+
+    .name {
+      font-size: 40px;
+      font-weight: bold;
+      margin: 30px 0;
+      border-bottom: 2px solid #000;
+      display: inline-block;
+      padding-bottom: 10px;
+    }
+
+    .course {
+      font-size: 25px;
+      margin-top: 20px;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      right: 40px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+    }
+
+    .signature {
+      text-align: center;
+    }
+
+    .line {
+      border-top: 1px solid black;
+      width: 200px;
+      margin-top: 5px;
+    }
+
+    .seal {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      font-size: 18px;
+      border: 2px solid #C9A94D;
+      padding: 10px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="certificate">
+
+    <div class="seal">Verified</div>
+
+    <div class="title">Certificate of Completion</div>
+
+    <div class="subtitle">This is to certify that</div>
+
+    <div class="name">${name}</div>
+
+    <div class="subtitle">has successfully completed the course</div>
+
+    <div class="course">${course}</div>
+
+    <div class="subtitle">Date: ${new Date().toLocaleDateString()}</div>
+
+    <div class="footer">
+      <div class="signature">
+        <div class="line"></div>
+        Instructor
+      </div>
+
+      <div class="signature">
+        <div class="line"></div>
+        Director
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
+`;
+  const options = { format: "A4" };
+
+  const file = { content: html };
+
+  const pdfBuffer = await pdf.generatePdf(file, options);
+
+  console.log("PDF GENERATED:", pdfBuffer.length);
+
+  return new NextResponse(pdfBuffer, {
+    status: 200,
+    headers: {
+      "Content-Type": "application/pdf",
+      "Content-Disposition": "attachment; filename=certificate.pdf",
+    },
+  });
+}

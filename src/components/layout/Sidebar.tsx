@@ -100,6 +100,7 @@ import {
   LogOut, 
   Zap, 
   PlusCircle,
+  Award,
   Sparkles  // Add this icon for the planner
 } from "lucide-react";
 import { signOut } from "next-auth/react";
@@ -109,7 +110,8 @@ const studentLinks = [
   { href: "/student/courses", label: "Courses", icon: BookOpen },
   { href: "/student/profile", label: "Analytics", icon: BarChart2 },
   { href: "/student/rewards", label: "Rewards", icon: Zap },
-  { href: "/student/learniq-planner", label: "AI Planner", icon: Sparkles }, // Updated link
+  { href: "/student/learniq-planner", label: "AI Planner", icon: Sparkles },
+  { href: "/student/certificates", label: "Certificates", icon: Award }, // Updated link
   { href: "/student/settings", label: "Settings", icon: Settings },
 ];
 

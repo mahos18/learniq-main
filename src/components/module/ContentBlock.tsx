@@ -50,12 +50,12 @@ export default function ContentBlock({ block, moduleId, courseId, onQuizAnswer }
       {block.type === "pdf" && block.url && (
         <div className="rounded-card overflow-hidden border border-slate-200 textborder-slate-700">
           <div className="bg-slate-50 textbg-slate-800 px-4 py-2 border-b border-slate-200 textborder-slate-700 flex items-center justify-between">
-            <span className="text-xs text-slate-500">{block.title || "Document"}</span>
+            <span className="text-xs text-white">{block.title || "Document"}</span>
             <a
               href={block.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-brand-600 hover:underline"
+              className="text-xs text-white hover:underline"
             >
               Open in new tab
             </a>
@@ -81,7 +81,7 @@ export default function ContentBlock({ block, moduleId, courseId, onQuizAnswer }
             />
           </div>
           {block.content && (
-            <p className="text-xs text-slate-500 text-slate-400 mt-2 text-center italic">
+            <p className="text-xs text-white text-white mt-2 text-center italic">
               {block.content}
             </p>
           )}

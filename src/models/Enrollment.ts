@@ -9,19 +9,28 @@ export interface IEnrollment extends Document {
   overallProgress:  number;  // 0–100 calculated field
   isCompleted:      boolean;
   enrolledAt:       Date;
+  completedAt:Date;
 }
 
-const EnrollmentSchema = new Schema<IEnrollment>(
-  {
-    student:          { type: Schema.Types.ObjectId, ref: "User", required: true },
-    course:           { type: Schema.Types.ObjectId, ref: "Course", required: true },
-    completedModules: [{ type: Schema.Types.ObjectId, ref: "Module" }],
-    overallProgress:  { type: Number, default: 0, min: 0, max: 100 },
-    isCompleted:      { type: Boolean, default: false },
-    enrolledAt:       { type: Date, default: Date.now },
-  },
-  { timestamps: true }
-);
+
+const EnrollmentSchema = new mongoose.Schema({
+  student: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  course: { type: Schema.Types.ObjectId, ref: "Course", required: true },
+  enrolledAt: { type: Date, default: Date.now },
+  completedModules: [{ type: Schema.Types.ObjectId, ref: "Module" }],
+  overallProgress: { type: Number, default: 0 },
+  isCompleted: { type: Boolean, default: false }, // Add this field
+  completedAt: { type: Date }, // Add this field
+});
+
+EnrollmentSchema.methods.checkCompletion = function(moduleCount: number) {
+  if (this.completedModules.length === moduleCount && !this.isCompleted) {
+    this.isCompleted = true;
+    this.completedAt = new Date();
+    return true;
+  }
+  return false;
+};
 
 // Prevent duplicate enrollments
 EnrollmentSchema.index({ student: 1, course: 1 }, { unique: true });

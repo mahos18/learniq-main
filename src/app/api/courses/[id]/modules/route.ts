@@ -3,6 +3,8 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { connectDB } from "@/lib/db";
 import { Course, Module } from "@/models/Course";
+import Certificate from "@/models/Certificate";
+import { generateCertificate } from "@/lib/certificate/generator";
 
 // POST /api/courses/[id]/modules — add module to course
 export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
