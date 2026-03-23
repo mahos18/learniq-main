@@ -74,7 +74,7 @@ export default function CoursesClient({ courses, enrolledIds, userPoints }: Prop
                 "badge whitespace-nowrap px-3 py-1.5 transition-colors",
                 filter === d
                   ? "bg-brand-600 text-white"
-                  : "bg-slate-100 dark:bg-slate-700 text-slate-600 text-slate-300 hover:bg-slate-200"
+                  : "bg-slate-100 textbg-slate-700 text-slate-600 text-slate-300 hover:bg-slate-200"
               )}
             >
               {d === "All" ? "All levels" : d.charAt(0).toUpperCase() + d.slice(1)}
@@ -95,7 +95,7 @@ export default function CoursesClient({ courses, enrolledIds, userPoints }: Prop
             return (
               <div key={course._id} className="card overflow-hidden flex flex-col hover:shadow-card-hover transition-shadow">
                 {/* Thumbnail */}
-                <div className="h-36 bg-brand-50 dark:bg-brand-900/20 flex items-center justify-center overflow-hidden">
+                <div className="h-36 bg-brand-50 textbg-brand-900/20 flex items-center justify-center overflow-hidden">
                   {course.thumbnail ? (
                     <img src={course.thumbnail} alt="" className="w-full h-full object-cover" />
                   ) : (
@@ -117,7 +117,7 @@ export default function CoursesClient({ courses, enrolledIds, userPoints }: Prop
                   <p className="text-xs text-slate-500 text-slate-400 line-clamp-2">{course.description}</p>
                   <p className="text-xs text-slate-400">by {course.instructor.name}</p>
 
-                  <div className="flex items-center gap-2 text-xs text-slate-500 mt-auto pt-2 border-t border-slate-100 dark:border-slate-700">
+                  <div className="flex items-center gap-2 text-xs text-slate-500 mt-auto pt-2 border-t border-slate-100 textborder-slate-700">
                     <BookOpen size={12} />
                     <span>{course.modules.length} modules</span>
                     {course.pointCost > 0 && (

@@ -18,7 +18,7 @@ export default function StreakCounter({ streak, size = "md" }: StreakCounterProp
   if (streak === 0) return null;
 
   return (
-    <div className={`inline-flex items-center ${s.wrap} bg-amber-50 dark:bg-amber-900/20 rounded-pill border border-amber-200 dark:border-amber-700`}>
+    <div className={`inline-flex items-center ${s.wrap} bg-amber-50 textbg-amber-900/20 rounded-pill border border-amber-200 textborder-amber-700`}>
       <Flame size={s.icon} className={`text-amber-500 ${streak >= 7 ? "animate-pulse" : ""}`} />
       <span className={`font-bold text-amber-700 text-amber-400 ${s.text}`}>{streak}</span>
       <span className="text-xs text-amber-500 text-amber-500">day streak</span>

@@ -23,8 +23,8 @@ export default function RewardsClient({ points, transactions, courses }: Props) 
       <h1 className="text-2xl font-bold text-slate-900 text-white">Rewards</h1>
 
       {/* Points hero */}
-      <div className="card p-6 flex items-center gap-6 bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/10 border-amber-100 dark:border-amber-800">
-        <div className="w-16 h-16 bg-amber-100 dark:bg-amber-800 rounded-full flex items-center justify-center">
+      <div className="card p-6 flex items-center gap-6 bg-gradient-to-r from-amber-50 to-yellow-50 textfrom-amber-900/20 textto-yellow-900/10 border-amber-100 textborder-amber-800">
+        <div className="w-16 h-16 bg-amber-100 textbg-amber-800 rounded-full flex items-center justify-center">
           <Coins size={32} className="text-amber-600 text-amber-300" />
         </div>
         <div>
@@ -61,7 +61,7 @@ export default function RewardsClient({ points, transactions, courses }: Props) 
               const canAfford = points >= c.pointCost;
               return (
                 <div key={c._id} className="card p-4 flex gap-3 items-center">
-                  <div className="w-12 h-12 bg-brand-50 dark:bg-brand-900/30 rounded-input flex items-center justify-center flex-shrink-0 overflow-hidden">
+                  <div className="w-12 h-12 bg-brand-50 textbg-brand-900/30 rounded-input flex items-center justify-center flex-shrink-0 overflow-hidden">
                     {c.thumbnail
                       ? <img src={c.thumbnail} alt="" className="w-full h-full object-cover" />
                       : <BookOpen size={20} className="text-brand-400" />}
@@ -93,7 +93,7 @@ export default function RewardsClient({ points, transactions, courses }: Props) 
             No transactions yet. Complete a module to earn your first points!
           </div>
         ) : (
-          <div className="card divide-y divide-slate-100 dark:divide-slate-700">
+          <div className="card divide-y divide-slate-100 textdivide-slate-700">
             {transactions.map((t) => (
               <div key={t._id} className="flex items-center gap-3 px-4 py-3">
                 <span className="text-lg">{ACTION_ICONS[t.action] ?? "⭐"}</span>

@@ -90,8 +90,8 @@ export default function InstructorDashClient({ courses: initial, stats, instruct
                   <span className={cn(
                     "badge text-xs flex-shrink-0",
                     c.isPublished
-                      ? "bg-reward-50 text-reward-600 dark:bg-reward-500/20 text-reward-400"
-                      : "bg-slate-100 text-slate-500 dark:bg-slate-700 text-slate-400"
+                      ? "bg-reward-50 text-reward-600 textbg-reward-500/20 text-reward-400"
+                      : "bg-slate-100 text-slate-500 textbg-slate-700 text-slate-400"
                   )}>
                     {c.isPublished ? "Published" : "Draft"}
                   </span>
@@ -102,7 +102,7 @@ export default function InstructorDashClient({ courses: initial, stats, instruct
               <div className="flex items-center gap-2 flex-shrink-0">
                 <button
                   onClick={() => togglePublish(c._id, c.isPublished)}
-                  className="p-2 rounded-input hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                  className="p-2 rounded-input hover:bg-slate-50 texthover:bg-slate-700 transition-colors"
                   title={c.isPublished ? "Unpublish" : "Publish"}
                 >
                   {c.isPublished
@@ -111,13 +111,13 @@ export default function InstructorDashClient({ courses: initial, stats, instruct
                 </button>
                 <Link
                   href={`/instructor/courses/${c._id}`}
-                  className="p-2 rounded-input hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                  className="p-2 rounded-input hover:bg-slate-50 texthover:bg-slate-700 transition-colors"
                 >
                   <Edit size={16} className="text-brand-500" />
                 </Link>
                 <button
                   onClick={() => deleteCourse(c._id)}
-                  className="p-2 rounded-input hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                  className="p-2 rounded-input hover:bg-red-50 texthover:bg-red-900/20 transition-colors"
                 >
                   <Trash2 size={16} className="text-red-400" />
                 </button>

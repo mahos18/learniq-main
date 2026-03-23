@@ -75,14 +75,14 @@
 //               href={`/student/courses/${course._id}/modules/${m._id}`}
 //               className={cn(
 //                 "flex items-center gap-2 px-3 py-2.5 rounded-input text-sm transition-all",
-//                 active  ? "bg-brand-50 dark:bg-brand-900/30 text-brand-700 text-brand-300 font-medium"
-//                         : "text-slate-600 text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700/50"
+//                 active  ? "bg-brand-50 textbg-brand-900/30 text-brand-700 text-brand-300 font-medium"
+//                         : "text-slate-600 text-slate-400 hover:bg-slate-50 texthover:bg-slate-700/50"
 //               )}
 //             >
 //               <span className={cn(
 //                 "w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 text-xs",
 //                 done   ? "bg-reward-500 text-white"
-//                        : active ? "bg-brand-600 text-white" : "bg-slate-200 dark:bg-slate-600 text-slate-500"
+//                        : active ? "bg-brand-600 text-white" : "bg-slate-200 textbg-slate-600 text-slate-500"
 //               )}>
 //                 {done ? <CheckCircle2 size={12} /> : i + 1}
 //               </span>
@@ -126,7 +126,7 @@
 //             className={cn(
 //               "flex items-center gap-2 px-5 py-2.5 rounded-input font-medium transition-all",
 //               completed
-//                 ? "bg-reward-50 text-reward-600 dark:bg-reward-600/20 cursor-default"
+//                 ? "bg-reward-50 text-reward-600 textbg-reward-600/20 cursor-default"
 //                 : "btn-primary"
 //             )}
 //           >
@@ -213,7 +213,7 @@
 // function PdfBlock({ block }: any) {
 //   return (
 //     <div className="card overflow-hidden">
-//       <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-100 dark:border-slate-700">
+//       <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-100 textborder-slate-700">
 //         <FileText size={16} className="text-brand-500" />
 //         <p className="font-medium text-slate-700 text-slate-200">{block.title || "Document"}</p>
 //       </div>
@@ -233,7 +233,7 @@
 
 // function TextBlock({ block }: any) {
 //   return (
-//     <div className="card p-5 prose dark:prose-invert max-w-none prose-headings:font-bold prose-code:bg-slate-100 dark:prose-code:bg-slate-700 prose-code:px-1 prose-code:rounded">
+//     <div className="card p-5 prose textprose-invert max-w-none prose-headings:font-bold prose-code:bg-slate-100 textprose-code:bg-slate-700 prose-code:px-1 prose-code:rounded">
 //       {block.title && <h3 className="font-semibold text-slate-700 text-slate-200 mb-3">{block.title}</h3>}
 //       <ReactMarkdown>{block.content || ""}</ReactMarkdown>
 //     </div>
@@ -245,8 +245,8 @@
 //     <div className={cn(
 //       "card p-5",
 //       isPopup
-//         ? "border-2 border-ai-200 dark:border-ai-700 bg-ai-50 dark:bg-ai-900/20"
-//         : "border border-slate-200 dark:border-slate-700"
+//         ? "border-2 border-ai-200 textborder-ai-700 bg-ai-50 textbg-ai-900/20"
+//         : "border border-slate-200 textborder-slate-700"
 //     )}>
 //       {/* Header */}
 //       <div className="flex items-center gap-2 mb-4">
@@ -270,10 +270,10 @@
 //               <p className="font-medium text-slate-800 text-white mb-3">{q.question}</p>
 //               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
 //                 {q.options.map((opt: string, idx: number) => {
-//                   let style = "border border-slate-200 dark:border-slate-600 hover:border-brand-400 hover:bg-brand-50 dark:hover:bg-brand-900/20";
+//                   let style = "border border-slate-200 textborder-slate-600 hover:border-brand-400 hover:bg-brand-50 texthover:bg-brand-900/20";
 //                   if (result) {
-//                     if (idx === result.correctIndex) style = "border-2 border-reward-500 bg-reward-50 dark:bg-reward-900/20";
-//                     else if (idx !== result.correctIndex && result.isCorrect === false) style = "border border-red-200 bg-red-50 dark:bg-red-900/10 opacity-60";
+//                     if (idx === result.correctIndex) style = "border-2 border-reward-500 bg-reward-50 textbg-reward-900/20";
+//                     else if (idx !== result.correctIndex && result.isCorrect === false) style = "border border-red-200 bg-red-50 textbg-red-900/10 opacity-60";
 //                   }
 //                   return (
 //                     <button
@@ -364,7 +364,7 @@ export default function ModuleViewerClient({ course, mod, enrollment, studentId 
     <div className="flex flex-col min-h-full -m-7"> {/* negative margin to undo parent padding */}
 
       {/* ── Top bar ── */}
-      <div className="flex items-center justify-between px-5 py-3 border-b border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 sticky top-0 z-20">
+      <div className="flex items-center justify-between px-5 py-3 border-b border-slate-200 textborder-slate-700 bg-white textbg-slate-900 sticky top-0 z-20">
         {/* Left: back + course title */}
         <div className="flex items-center gap-3 min-w-0">
           <Link
@@ -374,10 +374,10 @@ export default function ModuleViewerClient({ course, mod, enrollment, studentId 
             <ChevronLeft size={16} />
             <span className="hidden sm:inline">Back</span>
           </Link>
-          <div className="h-4 w-px bg-slate-200 dark:bg-slate-700 flex-shrink-0" />
+          <div className="h-4 w-px bg-slate-200 textbg-slate-700 flex-shrink-0" />
           <div className="min-w-0">
             <p className="text-xs text-slate-400 truncate">{course.title}</p>
-            <p className="text-sm font-semibold text-slate-800 dark:text-white truncate">{mod.title}</p>
+            <p className="text-sm font-semibold text-slate-800 texttext-white truncate">{mod.title}</p>
           </div>
         </div>
 
@@ -386,24 +386,24 @@ export default function ModuleViewerClient({ course, mod, enrollment, studentId 
           {prevMod ? (
             <Link
               href={`/student/courses/${course._id}/modules/${prevMod._id}`}
-              className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm text-slate-600 texttext-slate-300 hover:bg-slate-100 texthover:bg-slate-700 transition-colors"
             >
               <ChevronLeft size={15} /> Previous
             </Link>
           ) : (
-            <button disabled className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm text-slate-300 dark:text-slate-600 cursor-not-allowed">
+            <button disabled className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm text-slate-300 texttext-slate-600 cursor-not-allowed">
               <ChevronLeft size={15} /> Previous
             </button>
           )}
           {nextMod ? (
             <Link
               href={`/student/courses/${course._id}/modules/${nextMod._id}`}
-              className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm text-slate-600 texttext-slate-300 hover:bg-slate-100 texthover:bg-slate-700 transition-colors"
             >
               Next <ChevronRight size={15} />
             </Link>
           ) : (
-            <button disabled className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm text-slate-300 dark:text-slate-600 cursor-not-allowed">
+            <button disabled className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm text-slate-300 texttext-slate-600 cursor-not-allowed">
               Next <ChevronRight size={15} />
             </button>
           )}
@@ -412,7 +412,7 @@ export default function ModuleViewerClient({ course, mod, enrollment, studentId 
         {/* Right: module list toggle */}
         <button
           onClick={() => setPanelOpen(true)}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors border border-slate-200 dark:border-slate-600"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium text-slate-600 texttext-slate-300 hover:bg-slate-100 texthover:bg-slate-700 transition-colors border border-slate-200 textborder-slate-600"
         >
           <List size={15} />
           <span className="hidden sm:inline">Modules</span>
@@ -428,7 +428,7 @@ export default function ModuleViewerClient({ course, mod, enrollment, studentId 
 
           {/* Module heading */}
           <div>
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{mod.title}</h1>
+            <h1 className="text-2xl font-bold text-slate-900 texttext-white">{mod.title}</h1>
             <p className="text-sm text-slate-400 mt-1">
               Module {currentIdx + 1} of {allModules.length}
               {completed && (
@@ -453,7 +453,7 @@ export default function ModuleViewerClient({ course, mod, enrollment, studentId 
           {/* Mark complete */}
           <div className="card p-5 flex items-center justify-between gap-4 mt-2">
             <div>
-              <p className="font-medium text-slate-900 dark:text-white">
+              <p className="font-medium text-slate-900 texttext-white">
                 {completed ? "Module completed!" : "Finished with this module?"}
               </p>
               <p className="text-sm text-slate-400">
@@ -468,7 +468,7 @@ export default function ModuleViewerClient({ course, mod, enrollment, studentId 
               className={cn(
                 "flex items-center gap-2 px-5 py-2.5 rounded-input font-medium transition-all flex-shrink-0",
                 completed
-                  ? "bg-green-50 text-green-600 dark:bg-green-600/20 cursor-default"
+                  ? "bg-green-50 text-green-600 textbg-green-600/20 cursor-default"
                   : "btn-primary"
               )}
             >
@@ -510,32 +510,32 @@ export default function ModuleViewerClient({ course, mod, enrollment, studentId 
         {/* Panel */}
         <aside
           className={cn(
-            "fixed right-0 top-0 h-full w-80 bg-white dark:bg-slate-900 border-l border-slate-200 dark:border-slate-700 z-40 flex flex-col transition-transform duration-300 ease-in-out",
+            "fixed right-0 top-0 h-full w-80 bg-white textbg-slate-900 border-l border-slate-200 textborder-slate-700 z-40 flex flex-col transition-transform duration-300 ease-in-out",
             // On mobile/tablet: slide in/out. On lg+: always visible when open
             panelOpen ? "translate-x-0" : "translate-x-full"
           )}
         >
           {/* Panel header */}
-          <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-slate-700 flex-shrink-0">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200 textborder-slate-700 flex-shrink-0">
             <div>
               <p className="text-xs text-slate-400 uppercase tracking-wide font-medium">Course Content</p>
-              <p className="text-sm font-semibold text-slate-800 dark:text-white mt-0.5 line-clamp-1">{course.title}</p>
+              <p className="text-sm font-semibold text-slate-800 texttext-white mt-0.5 line-clamp-1">{course.title}</p>
             </div>
             <button
               onClick={() => setPanelOpen(false)}
-              className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors text-slate-400"
+              className="p-1.5 rounded-lg hover:bg-slate-100 texthover:bg-slate-700 transition-colors text-slate-400"
             >
               <X size={16} />
             </button>
           </div>
 
           {/* Progress bar */}
-          <div className="px-5 py-3 border-b border-slate-200 dark:border-slate-700 flex-shrink-0">
+          <div className="px-5 py-3 border-b border-slate-200 textborder-slate-700 flex-shrink-0">
             <div className="flex justify-between text-xs text-slate-400 mb-1.5">
               <span>{enrollment.completedModules?.length || 0} of {allModules.length} completed</span>
               <span>{Math.round(enrollment.overallProgress || 0)}%</span>
             </div>
-            <div className="h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+            <div className="h-1.5 bg-slate-200 textbg-slate-700 rounded-full overflow-hidden">
               <div
                 className="h-full bg-brand-500 rounded-full transition-all"
                 style={{ width: `${enrollment.overallProgress || 0}%` }}
@@ -556,8 +556,8 @@ export default function ModuleViewerClient({ course, mod, enrollment, studentId 
                   className={cn(
                     "flex items-center gap-3 px-5 py-3.5 transition-colors border-l-2",
                     active
-                      ? "bg-brand-50 dark:bg-brand-900/20 border-brand-500"
-                      : "border-transparent hover:bg-slate-50 dark:hover:bg-slate-800"
+                      ? "bg-brand-50 textbg-brand-900/20 border-brand-500"
+                      : "border-transparent hover:bg-slate-50 texthover:bg-slate-800"
                   )}
                 >
                   {/* Icon */}
@@ -567,7 +567,7 @@ export default function ModuleViewerClient({ course, mod, enrollment, studentId 
                       ? "bg-green-500 text-white"
                       : active
                         ? "bg-brand-600 text-white"
-                        : "bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
+                        : "bg-slate-200 textbg-slate-700 text-slate-500 texttext-slate-400"
                   )}>
                     {done ? <CheckCircle2 size={14} /> : <PlayCircle size={14} />}
                   </div>
@@ -575,7 +575,7 @@ export default function ModuleViewerClient({ course, mod, enrollment, studentId 
                   <div className="min-w-0">
                     <p className={cn(
                       "text-sm truncate",
-                      active ? "font-semibold text-brand-600 dark:text-brand-400" : "text-slate-700 dark:text-slate-300"
+                      active ? "font-semibold text-brand-600 texttext-brand-400" : "text-slate-700 texttext-slate-300"
                     )}>
                       {m.title}
                     </p>
@@ -614,7 +614,7 @@ function YouTubeBlock({ block }: any) {
   if (!videoId) return null;
   return (
     <div className="card overflow-hidden">
-      {block.title && <p className="px-4 pt-4 font-medium text-slate-700 dark:text-slate-200">{block.title}</p>}
+      {block.title && <p className="px-4 pt-4 font-medium text-slate-700 texttext-slate-200">{block.title}</p>}
       <div className="relative pt-[56.25%] mt-3">
         <iframe
           className="absolute inset-0 w-full h-full"
@@ -630,7 +630,7 @@ function YouTubeBlock({ block }: any) {
 function VideoBlock({ block }: any) {
   return (
     <div className="card overflow-hidden">
-      {block.title && <p className="px-4 pt-4 font-medium text-slate-700 dark:text-slate-200">{block.title}</p>}
+      {block.title && <p className="px-4 pt-4 font-medium text-slate-700 texttext-slate-200">{block.title}</p>}
       <video controls className="w-full mt-3" src={block.url}>
         Your browser does not support the video tag.
       </video>
@@ -641,9 +641,9 @@ function VideoBlock({ block }: any) {
 function PdfBlock({ block }: any) {
   return (
     <div className="card overflow-hidden">
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-100 dark:border-slate-700">
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-100 textborder-slate-700">
         <FileText size={16} className="text-brand-500" />
-        <p className="font-medium text-slate-700 dark:text-slate-200">{block.title || "Document"}</p>
+        <p className="font-medium text-slate-700 texttext-slate-200">{block.title || "Document"}</p>
       </div>
       <iframe src={block.url} className="w-full h-[600px]" />
     </div>
@@ -661,8 +661,8 @@ function ImageBlock({ block }: any) {
 
 function TextBlock({ block }: any) {
   return (
-    <div className="card p-5 prose dark:prose-invert max-w-none prose-headings:font-bold prose-code:bg-slate-100 dark:prose-code:bg-slate-700 prose-code:px-1 prose-code:rounded">
-      {block.title && <h3 className="font-semibold text-slate-700 dark:text-slate-200 mb-3">{block.title}</h3>}
+    <div className="card p-5 prose textprose-invert max-w-none prose-headings:font-bold prose-code:bg-slate-100 textprose-code:bg-slate-700 prose-code:px-1 prose-code:rounded">
+      {block.title && <h3 className="font-semibold text-slate-700 texttext-slate-200 mb-3">{block.title}</h3>}
       <ReactMarkdown>{block.content || ""}</ReactMarkdown>
     </div>
   );
@@ -673,12 +673,12 @@ function QuizBlock({ block, isPopup, results, submitting, onSubmit }: any) {
     <div className={cn(
       "card p-5",
       isPopup
-        ? "border-2 border-ai-200 dark:border-ai-700 bg-ai-50 dark:bg-ai-900/20"
-        : "border border-slate-200 dark:border-slate-700"
+        ? "border-2 border-ai-200 textborder-ai-700 bg-ai-50 textbg-ai-900/20"
+        : "border border-slate-200 textborder-slate-700"
     )}>
       <div className="flex items-center gap-2 mb-4">
         <Zap size={18} className={isPopup ? "text-ai-600" : "text-brand-600"} />
-        <span className={cn("font-semibold", isPopup ? "text-ai-700 dark:text-ai-300" : "text-slate-800 dark:text-white")}>
+        <span className={cn("font-semibold", isPopup ? "text-ai-700 texttext-ai-300" : "text-slate-800 texttext-white")}>
           {isPopup ? "Quick Check — Answer for bonus points!" : "Module Assessment"}
         </span>
         {isPopup && (
@@ -692,13 +692,13 @@ function QuizBlock({ block, isPopup, results, submitting, onSubmit }: any) {
           const result = results[q._id];
           return (
             <div key={q._id}>
-              <p className="font-medium text-slate-800 dark:text-white mb-3">{q.question}</p>
+              <p className="font-medium text-slate-800 texttext-white mb-3">{q.question}</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {q.options.map((opt: string, idx: number) => {
-                  let style = "border border-slate-200 dark:border-slate-600 hover:border-brand-400 hover:bg-brand-50 dark:hover:bg-brand-900/20";
+                  let style = "border border-slate-200 textborder-slate-600 hover:border-brand-400 hover:bg-brand-50 texthover:bg-brand-900/20";
                   if (result) {
-                    if (idx === result.correctIndex) style = "border-2 border-green-500 bg-green-50 dark:bg-green-900/20";
-                    else if (idx !== result.correctIndex && result.isCorrect === false) style = "border border-red-200 bg-red-50 dark:bg-red-900/10 opacity-60";
+                    if (idx === result.correctIndex) style = "border-2 border-green-500 bg-green-50 textbg-green-900/20";
+                    else if (idx !== result.correctIndex && result.isCorrect === false) style = "border border-red-200 bg-red-50 textbg-red-900/10 opacity-60";
                   }
                   return (
                     <button

@@ -48,8 +48,8 @@ export default function ContentBlock({ block, moduleId, courseId, onQuizAnswer }
 
       {/* ── PDF embed ────────────────────────────────── */}
       {block.type === "pdf" && block.url && (
-        <div className="rounded-card overflow-hidden border border-slate-200 dark:border-slate-700">
-          <div className="bg-slate-50 dark:bg-slate-800 px-4 py-2 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+        <div className="rounded-card overflow-hidden border border-slate-200 textborder-slate-700">
+          <div className="bg-slate-50 textbg-slate-800 px-4 py-2 border-b border-slate-200 textborder-slate-700 flex items-center justify-between">
             <span className="text-xs text-slate-500">{block.title || "Document"}</span>
             <a
               href={block.url}
@@ -90,12 +90,12 @@ export default function ContentBlock({ block, moduleId, courseId, onQuizAnswer }
 
       {/* ── Rich text / markdown ─────────────────────── */}
       {block.type === "text" && block.content && (
-        <div className="prose prose-sm dark:prose-invert max-w-none
+        <div className="prose prose-sm textprose-invert max-w-none
           prose-headings:font-semibold prose-headings:text-slate-900
           prose-p:text-slate-600 prose-p:leading-relaxed
           prose-code:bg-slate-100 prose-code:px-1 prose-code:rounded
           prose-pre:bg-slate-900 prose-pre:text-slate-100
-          dark:prose-headings:text-slate-100 dark:prose-p:text-slate-300">
+          textprose-headings:text-slate-100 textprose-p:text-slate-300">
           <ReactMarkdown>{block.content}</ReactMarkdown>
         </div>
       )}

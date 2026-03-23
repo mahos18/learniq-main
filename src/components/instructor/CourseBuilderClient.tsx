@@ -204,7 +204,7 @@ export default function CourseBuilderClient({ courseId, initialModules }: {
                           setShowBlockMenu(false);
                           setBlockFormType({ type, label });
                         }}
-                        className="w-full flex items-center gap-2 px-3 py-2 text-sm text-slate-600 text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
+                        className="w-full flex items-center gap-2 px-3 py-2 text-sm text-slate-600 text-slate-300 hover:bg-slate-50 texthover:bg-slate-700"
                       >
                         <Icon size={14} className="text-slate-400" />
                         {label}
@@ -217,14 +217,14 @@ export default function CourseBuilderClient({ courseId, initialModules }: {
 
             {/* Block list */}
             {(modules.find((m) => m._id === expanded)?.contentBlocks ?? []).length === 0 ? (
-              <div className="text-center py-12 text-slate-400 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-card">
+              <div className="text-center py-12 text-slate-400 border-2 border-dashed border-slate-200 textborder-slate-700 rounded-card">
                 <p className="text-sm">No content yet</p>
                 <p className="text-xs mt-1">Click &quot;Add Block&quot; to start building this module</p>
               </div>
             ) : (
               <div className="flex flex-col gap-2">
                 {modules.find((m) => m._id === expanded)?.contentBlocks.map((block: any) => (
-                  <div key={block._id} className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-700/50 rounded-input">
+                  <div key={block._id} className="flex items-center gap-3 p-3 bg-slate-50 textbg-slate-700/50 rounded-input">
                     <span className={cn("badge text-xs",
                       block.type.includes("quiz") ? "bg-ai-50 text-ai-700" : "bg-brand-50 text-brand-700"
                     )}>

@@ -28,7 +28,7 @@ export default function PWAInstallBanner() {
 
   return (
     <div className="fixed bottom-20 md:bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80 z-50 animate-slide-up">
-      <div className="card p-4 flex items-start gap-3 shadow-card-hover border border-brand-100 dark:border-brand-800">
+      <div className="card p-4 flex items-start gap-3 shadow-card-hover border border-brand-100 textborder-brand-800">
         <div className="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center flex-shrink-0">
           <span className="text-white font-bold text-sm">LQ</span>
         </div>

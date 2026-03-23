@@ -29,7 +29,7 @@ export default function CourseCard({
   return (
     <div className="card flex flex-col overflow-hidden hover:shadow-card-hover transition-shadow group">
       {/* Thumbnail */}
-      <div className="relative h-36 bg-gradient-to-br from-brand-100 to-brand-200 dark:from-brand-900 dark:to-brand-800">
+      <div className="relative h-36 bg-gradient-to-br from-brand-100 to-brand-200 textfrom-brand-900 textto-brand-800">
         {course.thumbnail ? (
           <Image src={course.thumbnail} alt={course.title} fill className="object-cover" />
         ) : (
@@ -52,7 +52,7 @@ export default function CourseCard({
       {/* Content */}
       <div className="flex flex-col flex-1 p-4 gap-3">
         <div>
-          <h3 className="font-semibold text-slate-900 text-white text-sm line-clamp-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+          <h3 className="font-semibold text-slate-900 text-white text-sm line-clamp-2 group-hover:text-brand-600 textgroup-hover:text-brand-400 transition-colors">
             {course.title}
           </h3>
           <p className="text-xs text-slate-500 text-slate-400 mt-1 line-clamp-2">
@@ -74,7 +74,7 @@ export default function CourseCard({
         {course.tags?.length > 0 && (
           <div className="flex flex-wrap gap-1">
             {course.tags.slice(0, 3).map((tag) => (
-              <span key={tag} className="badge bg-slate-100 dark:bg-slate-700 text-slate-600 text-slate-300 text-xs">
+              <span key={tag} className="badge bg-slate-100 textbg-slate-700 text-slate-600 text-slate-300 text-xs">
                 {tag}
               </span>
             ))}
@@ -88,7 +88,7 @@ export default function CourseCard({
               <span>Progress</span>
               <span className="font-medium text-brand-600">{progress}%</span>
             </div>
-            <div className="h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+            <div className="h-1.5 bg-slate-100 textbg-slate-700 rounded-full overflow-hidden">
               <div
                 className="h-full bg-brand-500 rounded-full transition-all"
                 style={{ width: `${progress}%` }}

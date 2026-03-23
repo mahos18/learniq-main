@@ -124,7 +124,7 @@ export default function BuilderClient({ course }: { course: any }) {
       {/* Add module */}
       <button
         onClick={addModule}
-        className="mt-4 w-full border-2 border-dashed border-slate-200 dark:border-slate-600 rounded-card py-4 flex items-center justify-center gap-2 text-slate-400 hover:border-brand-400 hover:text-brand-500 transition-colors"
+        className="mt-4 w-full border-2 border-dashed border-slate-200 textborder-slate-600 rounded-card py-4 flex items-center justify-center gap-2 text-slate-400 hover:border-brand-400 hover:text-brand-500 transition-colors"
       >
         <Plus size={18} /> Add Module
       </button>
@@ -150,7 +150,7 @@ function SortableModule({ mod, courseId, expanded, onToggle, onDelete, onUpdate 
         <button {...attributes} {...listeners} className="cursor-grab active:cursor-grabbing text-slate-300 hover:text-slate-500">
           <GripVertical size={18} />
         </button>
-        <span className="w-6 h-6 bg-brand-100 dark:bg-brand-800 text-brand-700 text-brand-200 rounded-full text-xs flex items-center justify-center font-semibold">
+        <span className="w-6 h-6 bg-brand-100 textbg-brand-800 text-brand-700 text-brand-200 rounded-full text-xs flex items-center justify-center font-semibold">
           {mod.order}
         </span>
         <span className="flex-1 font-medium text-slate-800 text-white text-sm">{mod.title}</span>
@@ -165,7 +165,7 @@ function SortableModule({ mod, courseId, expanded, onToggle, onDelete, onUpdate 
 
       {/* Expanded: content block editor */}
       {expanded && (
-        <div className="border-t border-slate-100 dark:border-slate-700 p-4">
+        <div className="border-t border-slate-100 textborder-slate-700 p-4">
           <ContentBlockEditor mod={mod} courseId={courseId} onUpdate={onUpdate} />
         </div>
       )}
@@ -231,7 +231,7 @@ function ContentBlockEditor({ mod, onUpdate }: any) {
         const bt = BLOCK_TYPES.find((t) => t.value === block.type);
         const Icon = bt?.icon || BookOpen;
         return (
-          <div key={block._id} className="flex items-center gap-3 bg-slate-50 dark:bg-slate-700/50 rounded-input px-3 py-2">
+          <div key={block._id} className="flex items-center gap-3 bg-slate-50 textbg-slate-700/50 rounded-input px-3 py-2">
             <Icon size={14} className="text-slate-400 flex-shrink-0" />
             <span className="text-xs text-slate-500 font-medium w-24 flex-shrink-0">{bt?.label}</span>
             <span className="text-sm text-slate-700 text-slate-200 flex-1 truncate">
@@ -246,7 +246,7 @@ function ContentBlockEditor({ mod, onUpdate }: any) {
 
       {/* Add block form */}
       {showAdd ? (
-        <div className="border border-slate-200 dark:border-slate-600 rounded-input p-3 flex flex-col gap-2 mt-1">
+        <div className="border border-slate-200 textborder-slate-600 rounded-input p-3 flex flex-col gap-2 mt-1">
           <input
             className="input text-sm"
             placeholder="Block title (optional)"

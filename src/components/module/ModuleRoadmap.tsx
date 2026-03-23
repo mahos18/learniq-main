@@ -29,10 +29,10 @@ export default function ModuleRoadmap({
             onClick={(e) => locked && e.preventDefault()}
             className={cn(
               "flex items-center gap-3 px-3 py-2.5 rounded-input text-sm transition-all group",
-              active   && "bg-brand-50 dark:bg-brand-900/30 text-brand-700 text-brand-300 font-medium",
-              done && !active && "text-slate-500 text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700/50",
+              active   && "bg-brand-50 textbg-brand-900/30 text-brand-700 text-brand-300 font-medium",
+              done && !active && "text-slate-500 text-slate-400 hover:bg-slate-50 texthover:bg-slate-700/50",
               locked   && "text-slate-300 text-slate-600 cursor-not-allowed",
-              !active && !done && !locked && "text-slate-600 text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700/50"
+              !active && !done && !locked && "text-slate-600 text-slate-400 hover:bg-slate-50 texthover:bg-slate-700/50"
             )}
           >
             {/* Status icon */}

@@ -26,8 +26,8 @@ export default function QuizBlock({ block, moduleId, courseId, variant, onAnswer
     <div className={cn(
       "rounded-card border-2 p-4",
       isPopup
-        ? "border-ai-400 bg-ai-50 dark:bg-ai-900/20 dark:border-ai-600"
-        : "border-brand-200 dark:border-brand-700 bg-brand-50 dark:bg-brand-900/10"
+        ? "border-ai-400 bg-ai-50 textbg-ai-900/20 textborder-ai-600"
+        : "border-brand-200 textborder-brand-700 bg-brand-50 textbg-brand-900/10"
     )}>
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
@@ -94,10 +94,10 @@ export default function QuizBlock({ block, moduleId, courseId, variant, onAnswer
                       }}
                       className={cn(
                         "w-full text-left px-3 py-2.5 rounded-input border text-sm transition-all",
-                        !answered && "hover:border-brand-400 hover:bg-white dark:hover:bg-slate-700",
-                        !answered && "border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 text-slate-300",
-                        answered && idx === result.correctIndex && "border-green-400 bg-green-50 dark:bg-green-900/20 text-green-700 text-green-300 font-medium",
-                        answered && idx !== result.correctIndex && "border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-400 opacity-60",
+                        !answered && "hover:border-brand-400 hover:bg-white texthover:bg-slate-700",
+                        !answered && "border-slate-200 textborder-slate-600 bg-white textbg-slate-800 text-slate-700 text-slate-300",
+                        answered && idx === result.correctIndex && "border-green-400 bg-green-50 textbg-green-900/20 text-green-700 text-green-300 font-medium",
+                        answered && idx !== result.correctIndex && "border-slate-100 textborder-slate-700 bg-slate-50 textbg-slate-800/50 text-slate-400 opacity-60",
                         submitting === q._id && "opacity-50 cursor-wait"
                       )}
                     >
@@ -120,8 +120,8 @@ export default function QuizBlock({ block, moduleId, courseId, variant, onAnswer
                 <div className={cn(
                   "flex items-center gap-2 mt-2 text-xs font-medium px-2 py-1 rounded-md",
                   result.isCorrect
-                    ? "text-green-600 bg-green-50 dark:bg-green-900/20"
-                    : "text-red-500 bg-red-50 dark:bg-red-900/20"
+                    ? "text-green-600 bg-green-50 textbg-green-900/20"
+                    : "text-red-500 bg-red-50 textbg-red-900/20"
                 )}>
                   {result.isCorrect
                     ? <><CheckCircle size={13} /> Correct! +{result.pointsEarned} points earned</>
