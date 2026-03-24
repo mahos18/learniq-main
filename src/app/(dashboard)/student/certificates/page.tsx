@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { Award, Loader2 } from "lucide-react";
 import CertificateCard from "@/components/certificate/CertificateCard";
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 interface Certificate {
   _id: string;

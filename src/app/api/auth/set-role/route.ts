@@ -22,7 +22,7 @@ import User from "@/models/User";
 export async function GET() {
   // Redirect to the client-side page that reads localStorage
   return NextResponse.redirect(
-    new URL("/auth/apply-role", process.env.NEXTAUTH_URL || "http://localhost:3000")
+    new URL("/auth/apply-role", process.env.NEXTAUTH_URL || "https://learniq-main-htdr.vercel.app")
   );
 }
 

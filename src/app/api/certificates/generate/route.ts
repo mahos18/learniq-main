@@ -2,11 +2,13 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { connectDB } from "@/lib/db";
+import { generateCertificate } from "@/lib/certificate/generator";
 import Certificate from "@/models/Certificate";
-import { Enrollment } from "@/models/Enrollment";
 import {Course} from "@/models/Course";
 import User from "@/models/User";
-import { generateCertificate } from "@/lib/certificate/generator";
+
+// Mark this route as dynamic
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
   try {
@@ -14,70 +16,47 @@ export async function POST(req: Request) {
     if (!session?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    
+
     const { courseId } = await req.json();
     await connectDB();
-    
-    // Check if user has completed the course
-    const enrollment = await Enrollment.findOne({
-      student: session.user.id,
-      course: courseId,
-      isCompleted: true,
-    });
-    
-    if (!enrollment) {
-      return NextResponse.json(
-        { error: "Course not completed. Complete all modules first." },
-        { status: 400 }
-      );
-    }
-    
+
     // Check if certificate already exists
-    const existingCertificate = await Certificate.findOne({
+    const existingCert = await Certificate.findOne({
       userId: session.user.id,
       courseId,
     });
-    
-    if (existingCertificate) {
-      return NextResponse.json({
-        certificate: existingCertificate,
-        message: "Certificate already exists",
-      });
+
+    if (existingCert) {
+      return NextResponse.json({ certificate: existingCert });
     }
-    
-    // Get user and course details
-    const user = await User.findById(session.user.id);
+
     const course = await Course.findById(courseId);
-    
-    if (!user || !course) {
-      return NextResponse.json({ error: "User or course not found" }, { status: 404 });
+    const user = await User.findById(session.user.id);
+
+    if (!course || !user) {
+      return NextResponse.json({ error: "Course or user not found" }, { status: 404 });
     }
-    
-    // Generate certificate
+
     const certificate = await generateCertificate({
       userId: session.user.id,
       userName: user.name,
-      courseId,
+      courseId: course._id.toString(),
       courseTitle: course.title,
-      completionDate: enrollment.completedAt || new Date(),
+      completionDate: new Date(),
     });
-    
-    // Save to database
+
     const newCertificate = await Certificate.create({
       userId: session.user.id,
-      courseId,
+      courseId: course._id,
       certificateId: certificate.certificateId,
       pdfUrl: certificate.pdfUrl,
       imageUrl: certificate.imageUrl,
       userName: user.name,
       courseTitle: course.title,
-      completedAt: enrollment.completedAt || new Date(),
+      completedAt: new Date(),
     });
-    
-    return NextResponse.json({
-      certificate: newCertificate,
-      message: "Certificate generated successfully",
-    });
+
+    return NextResponse.json({ certificate: newCertificate });
   } catch (error) {
     console.error("Certificate generation error:", error);
     return NextResponse.json(
