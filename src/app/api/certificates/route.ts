@@ -4,8 +4,9 @@ import { authOptions } from "@/lib/auth";
 import { connectDB } from "@/lib/db";
 import Certificate from "@/models/Certificate";
 
-// Mark this route as dynamic to prevent static generation
+// Mark this route as dynamic
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export async function GET() {
   try {

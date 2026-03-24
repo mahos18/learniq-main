@@ -4,7 +4,10 @@ import { authOptions } from "@/lib/auth";
 import { stripe } from "@/lib/stripe";
 import { connectDB } from "@/lib/db";
 import {Course} from "@/models/Course";
+import { Enrollment } from "@/models/Enrollment";
 import User from "@/models/User";
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
   try {
@@ -21,9 +24,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Course not found" }, { status: 404 });
     }
 
-    // For hackathon demo, use test mode
+    // For hackathon demo - simulate successful payment
     if (paymentMethod === "points") {
-      // Use points system
       const user = await User.findById(session.user.id);
       if (session.user.rewardPoints < course.pointCost) {
         return NextResponse.json({ error: "Insufficient points" }, { status: 400 });
@@ -34,9 +36,14 @@ export async function POST(req: Request) {
         $inc: { rewardPoints: -course.pointCost }
       });
       
-      // Award instructor points (can be converted later)
-      await User.findByIdAndUpdate(course.instructor._id, {
-        $inc: { rewardPoints: Math.floor(course.pointCost * 0.6) }
+      // Create enrollment
+      await Enrollment.create({
+        student: session.user.id,
+        course: courseId,
+        enrolledAt: new Date(),
+        completedModules: [],
+        overallProgress: 0,
+        isCompleted: false,
       });
       
       return NextResponse.json({ 
@@ -46,15 +53,16 @@ export async function POST(req: Request) {
       });
     } 
     
-    // For stripe (test mode)
-    const amount = course.pricing.amount;
+    // For hackathon demo, create a test payment intent
+    // Use a test amount (in cents)
+    const amount = course.pricing?.amount || 2999;
     const platformFee = Math.floor(amount * 0.4);
     const instructorEarning = amount - platformFee;
     
-    // Create a PaymentIntent
+    // For demo purposes, we'll create a payment intent that will succeed with test card
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
-      currency: course.pricing.currency || "usd",
+      currency: course.pricing?.currency || "usd",
       metadata: {
         courseId: course._id.toString(),
         studentId: session.user.id,
@@ -62,7 +70,8 @@ export async function POST(req: Request) {
         platformFee: platformFee.toString(),
         instructorEarning: instructorEarning.toString(),
       },
-      // For hackathon demo, use test card: 4242 4242 4242 4242
+      // For test mode, this will work with test card 4242 4242 4242 4242
+      payment_method_types: ['card'],
     });
     
     return NextResponse.json({ 
@@ -74,6 +83,8 @@ export async function POST(req: Request) {
     });
   } catch (error) {
     console.error("Payment intent error:", error);
-    return NextResponse.json({ error: "Payment failed" }, { status: 500 });
+    return NextResponse.json({ 
+      error: error instanceof Error ? error.message : "Payment failed" 
+    }, { status: 500 });
   }
 }

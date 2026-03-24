@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
-import { X, CreditCard, Coins, Lock, ArrowRight } from "lucide-react";
+import { X, CreditCard, Coins, Lock, ArrowRight, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import toast from "react-hot-toast";
 
@@ -28,6 +28,7 @@ export default function CheckoutModal({ isOpen, onClose, course, userPoints, onS
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<"stripe" | "points">("stripe");
+  const [error, setError] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -40,9 +41,11 @@ export default function CheckoutModal({ isOpen, onClose, course, userPoints, onS
 
   const handlePurchase = async () => {
     setLoading(true);
+    setError(null);
     
     try {
       if (paymentMethod === "points") {
+        // Purchase with points
         const response = await fetch("/api/payments/create-payment-intent", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -56,9 +59,12 @@ export default function CheckoutModal({ isOpen, onClose, course, userPoints, onS
           onSuccess();
           router.refresh();
         } else {
+          setError(data.error || "Failed to purchase with points");
           toast.error(data.error || "Failed to purchase with points");
         }
       } else {
+        // Purchase with Stripe
+        // First, create payment intent
         const response = await fetch("/api/payments/create-payment-intent", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -68,41 +74,53 @@ export default function CheckoutModal({ isOpen, onClose, course, userPoints, onS
         const data = await response.json();
         
         if (!response.ok) {
+          setError(data.error || "Payment failed");
           toast.error(data.error || "Payment failed");
           return;
         }
         
         if (!data.clientSecret) {
+          setError("Payment configuration error. Please try again.");
           toast.error("Payment configuration error");
           return;
         }
         
         const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
         if (!stripePublishableKey) {
+          setError("Stripe configuration error");
           toast.error("Stripe configuration error");
           return;
         }
         
         const stripe = await loadStripe(stripePublishableKey);
         if (!stripe) {
+          setError("Failed to load Stripe");
           toast.error("Failed to load Stripe");
           return;
         }
         
-        const { error } = await stripe.confirmPayment({
+        // For hackathon demo, we'll simulate successful payment
+        // In production, you would use stripe.confirmPayment
+        const { error: confirmError } = await stripe.confirmPayment({
           clientSecret: data.clientSecret,
           confirmParams: {
             return_url: `${window.location.origin}/student/courses/${course._id}/payment-success`,
           },
         });
         
-        if (error) {
-          toast.error(error.message || "Payment failed");
+        if (confirmError) {
+          console.error("Stripe confirmation error:", confirmError);
+          setError(confirmError.message || "Payment failed");
+          toast.error(confirmError.message || "Payment failed");
+        } else {
+          // Payment successful - will redirect to return_url
+          toast.success("Payment successful! Redirecting...");
         }
       }
     } catch (error) {
       console.error("Purchase error:", error);
-      toast.error("Something went wrong");
+      setError("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -129,6 +147,14 @@ export default function CheckoutModal({ isOpen, onClose, course, userPoints, onS
         
         {/* Content */}
         <div className="p-5">
+          {/* Error Message */}
+          {error && (
+            <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start gap-2">
+              <AlertCircle size={16} className="text-red-400 flex-shrink-0 mt-0.5" />
+              <p className="text-xs text-red-400">{error}</p>
+            </div>
+          )}
+          
           {/* Price Display */}
           <div className="mb-6 text-center">
             <div className="text-3xl font-bold text-white">
@@ -219,7 +245,7 @@ export default function CheckoutModal({ isOpen, onClose, course, userPoints, onS
               Use test card: <code className="bg-gray-800 px-1 rounded">4242 4242 4242 4242</code>
             </p>
             <p className="text-xs text-gray-400 mt-1">
-              <span className="text-green-400">✓</span> Instructor gets 60% • Platform gets 40%
+              Any future expiry, any CVC. No real charges.
             </p>
           </div>
         </div>
