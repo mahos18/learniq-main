@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
           certificate = await generateCertificate({
             userId: session.user.id,
             userName: session.user.name,
-            courseId: course._id,
+            courseId: course._id.toString(),
             courseTitle: course.title,
             completionDate: new Date(),
           });

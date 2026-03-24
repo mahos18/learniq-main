@@ -63,6 +63,12 @@ const ModuleSchema = new Schema<IModule>(
 );
 
 // ─── Course ───────────────────────────────────────────────
+
+export interface IPricing {
+  type: "free" | "paid";
+  amount: number;      // in cents (e.g., 2999 = $29.99)
+  currency: string;    // e.g., "usd", "inr"
+}
 export interface ICourse extends Document {
   title:       string;
   description: string;
@@ -70,6 +76,7 @@ export interface ICourse extends Document {
   thumbnail?:  string;
   tags:        string[];
   difficulty:  "beginner" | "intermediate" | "advanced";
+  pricing:    IPricing;
   pointCost:   number;
   isPublished: boolean;
   modules:     Types.ObjectId[];
@@ -78,15 +85,24 @@ export interface ICourse extends Document {
 
 const CourseSchema = new Schema<ICourse>(
   {
-    title:       { type: String, required: true },
+    title: { type: String, required: true },
     description: { type: String, required: true },
-    instructor:  { type: Schema.Types.ObjectId, ref: "User", required: true },
-    thumbnail:   { type: String },
-    tags:        { type: [String], default: [] },
-    difficulty:  { type: String, enum: ["beginner","intermediate","advanced"], default: "beginner" },
-    pointCost:   { type: Number, default: 0 },
+    instructor: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    thumbnail: { type: String },
+    tags: { type: [String], default: [] },
+    difficulty: { type: String, enum: ["beginner","intermediate","advanced"], default: "beginner" },
+    
+    // Monetization fields
+    pricing: {
+      type: { type: String, enum: ["free", "paid"], default: "free" },
+      amount: { type: Number, default: 0 }, // in cents/INR
+      currency: { type: String, default: "usd" },
+    },
+    
+    pointCost: { type: Number, default: 0 }, // Alternative: pay with points
+    
     isPublished: { type: Boolean, default: false },
-    modules:     [{ type: Schema.Types.ObjectId, ref: "Module" }],
+    modules: [{ type: Schema.Types.ObjectId, ref: "Module" }],
   },
   { timestamps: true }
 );

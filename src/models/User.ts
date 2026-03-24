@@ -7,6 +7,11 @@ export interface IUser extends Document {
   role: "student" | "instructor";
   rewardPoints: number;
   createdAt: Date;
+  stripeAccountId?: string;      // For instructors to receive payouts
+  stripeCustomerId?: string;     // For students to make payments
+  totalEarnings: number;         // Instructor's total earnings from courses
+  totalWithdrawn: number;        // Amount instructor has withdrawn
+  availableBalance: number;
 }
 
 const UserSchema = new Schema<IUser>(
@@ -16,6 +21,10 @@ const UserSchema = new Schema<IUser>(
     image:        { type: String },
     role:         { type: String, enum: ["student", "instructor"], default: "student" },
     rewardPoints: { type: Number, default: 0 },
+    stripeAccountId: { type: String }, // For instructors to receive payouts
+    stripeCustomerId: { type: String }, // For students to make payments
+    totalEarnings: { type: Number, default: 0 }, // Instructor's total earnings
+    totalWithdrawn: { type: Number, default: 0 }, // Amount withdrawn
   },
   { timestamps: true }
 );

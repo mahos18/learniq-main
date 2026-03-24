@@ -49,7 +49,7 @@ export async function POST(req: Request) {
 
   <body>
     <div class="container">
-      <img src="http://localhost:3001/certificate.png" class="bg"/>
+      <img src="learniq-main-htdr.vercel.app/certificate.png" class="bg"/>
 
       <div class="name">${name}</div>
       <div class="course">${course}</div>
