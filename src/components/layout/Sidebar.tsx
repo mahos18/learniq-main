@@ -111,6 +111,7 @@ const studentLinks = [
   { href: "/student/profile", label: "Analytics", icon: BarChart2 },
   { href: "/student/rewards", label: "Rewards", icon: Zap },
   { href: "/student/learniq-planner", label: "AI Planner", icon: Sparkles },
+  { href: "https://mock-interview-lemon-gamma.vercel.app/", label: "AI Learning", icon: Sparkles },
   { href: "/student/certificates", label: "Certificates", icon: Award }, // Updated link
   { href: "/student/settings", label: "Settings", icon: Settings },
 ];
